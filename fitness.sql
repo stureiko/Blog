@@ -70,3 +70,17 @@ CREATE TABLE IF NOT EXISTS regions (
 	name VARCHAR(255) NOT NULL
 )
 
+-- таблица тренировок 
+CREATE TABLE IF NOT EXISTS trainings (
+	id INT UNSIGNED NOT NULL PRIMARY KEY,
+	user_id INT UNSIGNED NOT NULL,
+	exp_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	status_id INT NOT NULL,
+	comm VARCHAR(255),
+)
+
+-- таблица статусов тренировки
+CREATE TABLE IF NOT EXISTS train_status(
+	id INT UNSIGNED NOT NULL PRIMARY KEY,
+	status_name VARCHAR(255) NOT NULL
+)
