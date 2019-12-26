@@ -20,10 +20,11 @@ CREATE TABLE IF NOT EXISTS users (
 -- DROP TABLE IF EXISTS profiles;
 CREATE TABLE IF NOT EXISTS profiles (
   user_id INT UNSIGNED NOT NULL PRIMARY KEY,
-  sex CHAR(1) NOT NULL, -- может boolean
+  sex BOOL NOT NULL, -- 1 male, 0 - female
   birthday DATE,
-  hometown VARCHAR(100),
-  photo_id INT UNSIGNED NOT NULL -- ключь из таблицы media.id
+  region_id INT UNSIGNED NOT NULL, -- районы где удобно заниматься, внешний ключ
+  photo_id INT UNSIGNED NOT NULL, -- ключь из таблицы media.id
+  fit_level INT UNSIGNED NOT NULL -- уровень подготовки
 );
 
 -- Таблица медиафайлов
@@ -62,3 +63,10 @@ CREATE TABLE IF NOT EXISTS courses (
 	name VARCHAR(255) NOT NULL,
 	description TEXT
 )
+
+-- таблица районов
+CREATE TABLE IF NOT EXISTS regions (
+	id INT UNSIGNED NOT NULL PRIMARY KEY,
+	name VARCHAR(255) NOT NULL
+)
+
