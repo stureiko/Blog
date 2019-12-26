@@ -13,8 +13,15 @@ CREATE TABLE IF NOT EXISTS users (
   email VARCHAR(120) NOT NULL UNIQUE,
   phone VARCHAR(120) NOT NULL UNIQUE,
   created_at DATETIME DEFAULT NOW(),
-  updated_at DATETIME DEFAULT NOW() ON UPDATE NOW()
+  updated_at DATETIME DEFAULT NOW() ON UPDATE NOW(),
+  type_id INT NOT NULL
 );
+
+-- типы пользователей
+CREATE TABLE IF NOT EXISTS user_type (
+	id INT UNSIGNED NOT NULL PRIMARY KEY,
+	decription VARCHAR(255) NOT NULL
+)
 
 -- Таблица профилей
 -- DROP TABLE IF EXISTS profiles;
@@ -45,7 +52,7 @@ CREATE TABLE IF NOT EXISTS media (
 CREATE TABLE IF NOT EXISTS media_types (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL UNIQUE,
-  course_id INT UNSIGNED NOT NULL -- связь с курсом
+  training_id INT UNSIGNED NOT NULL -- связь с курсом
 );
 
 -- Таблица типов курсов
@@ -64,10 +71,17 @@ CREATE TABLE IF NOT EXISTS courses (
 	description TEXT
 )
 
+-- таблица городов
+CREATE TABLE IF NOT EXISTS cities (
+	id INT UNSIGNED NOT NULL PRIMARY KEY,
+	name VARCHAR(255) NOT NULL
+)
+
 -- таблица районов
 CREATE TABLE IF NOT EXISTS regions (
 	id INT UNSIGNED NOT NULL PRIMARY KEY,
-	name VARCHAR(255) NOT NULL
+	name VARCHAR(255) NOT NULL,
+	city_id INT UNSIGNED NOT NULL
 )
 
 -- таблица тренировок 
@@ -77,6 +91,7 @@ CREATE TABLE IF NOT EXISTS trainings (
 	exp_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	status_id INT NOT NULL,
 	comm VARCHAR(255),
+	training_id INT UNSIGNED NOT NULL
 )
 
 -- таблица статусов тренировки
