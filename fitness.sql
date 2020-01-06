@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS user_type (
 	id INT UNSIGNED NOT NULL PRIMARY KEY,
 	decription VARCHAR(255) NOT NULL
-)
+);
 
 -- Таблица профилей
 -- DROP TABLE IF EXISTS profiles;
@@ -64,25 +64,45 @@ CREATE TABLE IF NOT EXISTS type_courses (
 );
 
 -- Таблица курсов
--- DROP TABLE IF NOT EXISTS courses;
+-- DROP TABLE IF EXISTS courses;
 CREATE TABLE IF NOT EXISTS courses (
 	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	name VARCHAR(255) NOT NULL,
-	description TEXT
-)
+	description TEXT,
+	course_type_id INT UNSIGNED NOT NULL
+);
+
+-- Таблица упраженений
+-- DROP TABLE IF EXISTS exercises;
+CREATE TABLE IF NOT EXISTS exercises (
+	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(255) NOT NULL,
+	description TEXT,
+	courses_trainings_id INT UNSIGNED NOT NULL,
+	media_id INT UNSIGNED NOT NULL
+);
+
+-- Таблица тренировок (для составления курсов)
+-- DROP TABLE IF EXISTS courses_trainings;
+CREATE TABLE IF NOT EXISTS courses_trainings (
+	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(255) NOT NULL,
+	description TEXT,
+	course_id INT UNSIGNED NOT NULL
+);
 
 -- таблица городов
 CREATE TABLE IF NOT EXISTS cities (
 	id INT UNSIGNED NOT NULL PRIMARY KEY,
 	name VARCHAR(255) NOT NULL
-)
+);
 
 -- таблица районов
 CREATE TABLE IF NOT EXISTS regions (
 	id INT UNSIGNED NOT NULL PRIMARY KEY,
 	name VARCHAR(255) NOT NULL,
 	city_id INT UNSIGNED NOT NULL
-)
+);
 
 -- таблица тренировок 
 CREATE TABLE IF NOT EXISTS trainings (
@@ -92,10 +112,17 @@ CREATE TABLE IF NOT EXISTS trainings (
 	status_id INT NOT NULL,
 	comm VARCHAR(255),
 	training_id INT UNSIGNED NOT NULL
-)
+);
 
 -- таблица статусов тренировки
 CREATE TABLE IF NOT EXISTS train_status(
 	id INT UNSIGNED NOT NULL PRIMARY KEY,
 	status_name VARCHAR(255) NOT NULL
-)
+);
+
+-- связь пользователей и купленных курсов
+CREATE TABLE IF NOT EXISTS programs(
+	id INT UNSIGNED NOT NULL PRIMARY KEY,
+	course_id INT UNSIGNED NOT NULL,
+	user_id INT UNSIGNED NOT NULL
+);
